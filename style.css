@@ -1,0 +1,191 @@
+/* --- 全局基础 --- */
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: "Microsoft YaHei", sans-serif; }
+body { background-color: #fdfbf7; color: #333; line-height: 1.6; }
+a { text-decoration: none; color: inherit; }
+
+/* --- 导航栏 --- */
+.navbar {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1rem 5%; background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    position: sticky; top: 0; z-index: 1000;
+}
+.logo { font-size: 1.5rem; font-weight: bold; color: #54061c; }
+.nav-links { list-style: none; display: flex; gap: 30px; }
+.nav-links a { font-weight: 500; transition: 0.3s; }
+.nav-links a:hover, .nav-links a.active { color: #b83b5e; border-bottom: 2px solid #b83b5e; }
+
+/* --- 通用容器 --- */
+.container { padding: 4rem 10%; max-width: 1200px; margin: 0 auto; }
+.page-header { background-color: #8b3a3a; color: white; text-align: center; padding: 3rem 1rem; margin-bottom: 2rem; }
+.page-header h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
+.section-title { text-align: center; font-size: 2rem; margin-bottom: 3rem; color: #333; position: relative; }
+.section-title::after { content: ""; display: block; width: 50px; height: 3px; background: #b83b5e; margin: 10px auto 0; }
+
+/* --- 首页：海报区 (Hero Section) --- */
+.hero {
+    height: 70vh; /* 确保整个hero区域的高度 */
+    position: relative; /* 关键：让内部的绝对定位元素（背景和内容）相对于它定位 */
+    overflow: hidden; /* 关键：隐藏背景图放大时超出部分，只显示在hero区域内 */
+    display: flex; /* 确保内容居中 */
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+}
+
+/* 动画背景图层 */
+.hero-bg-animated {
+    position: absolute; /* 绝对定位，覆盖整个hero区域 */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), /* 半透明遮罩 */
+                url('images/IMG_9348.JPG'); /* 你的首页背景图 */
+    background-size: cover;
+    background-position: center;
+    z-index: 1; /* 背景在内容下面 */
+
+    /* === 动画效果的核心代码 === */
+    animation: breathing-zoom 15s ease-in-out infinite alternate; /* 动画名称 持续时间 缓动函数 循环 次数方向 */
+}
+
+/* 动画内容层：确保文字等内容在背景图之上 */
+.hero-content {
+    position: relative; /* 相对定位，确保在背景图之上 */
+    z-index: 2; /* 内容在背景之上 */
+    /* 已经有了 hero 的 flex 属性，内容会自动居中 */
+}
+
+/* 定义“呼吸灯”动画 */
+@keyframes breathing-zoom {
+    0% {
+        transform: scale(1); /* 初始大小 */
+    }
+    100% {
+        transform: scale(1.1); /* 放大到1.1倍 */
+    }
+}
+
+/* 继续你之前hero-content内部的样式，比如 h1, p, btn */
+.hero-content h1 {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    letter-spacing: 5px;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.7); /* 给文字加点阴影，更突出 */
+}
+
+.hero-content p {
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+    text-shadow: 1px 1px 5px rgba(0,0,0,0.6);
+}
+
+.btn {
+    padding: 12px 30px;
+    background-color: #b83b5e;
+    color: white;
+    border-radius: 30px;
+    margin-top: 20px;
+    display: inline-block;
+    transition: 0.3s;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3); /* 按钮也加点阴影 */
+}
+.btn:hover {
+    background-color: #d64d72;
+    transform: translateY(-2px); /* 按钮悬停上浮 */
+}
+.hero h1 { font-size: 4rem; margin-bottom: 1rem; letter-spacing: 5px; }
+.btn { padding: 12px 30px; background-color: #b83b5e; color: white; border-radius: 30px; margin-top: 20px; display: inline-block; transition: 0.3s; }
+.btn:hover { background-color: #d64d72; }
+
+/* --- 首页：三大模块卡片 --- */
+.cards-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
+.feature-card { background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: 0.3s; display: block; }
+.feature-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.15); }
+.card-img { height: 200px; background-size: cover; background-position: center; background-color: #eee; }
+.feature-card h3 { padding: 1.5rem 1.5rem 0.5rem; color: #b83b5e; font-size: 1.25rem; }
+.feature-card p { padding: 0 1.5rem 1.5rem; color: #666; font-size: 0.9rem; }
+
+/* --- 技艺页：步骤样式 --- */
+.step-container { max-width: 900px; margin: 0 auto; padding: 2rem; }
+.step-item { display: flex; align-items: center; gap: 40px; margin-bottom: 4rem; }
+.step-item.reverse { flex-direction: row-reverse; } /* 图文左右颠倒 */
+.step-text { flex: 1; }
+.step-text h3 { font-size: 1.8rem; color: #b83b5e; margin-bottom: 1rem; }
+.step-img { flex: 1; }
+.step-img img { width: 100%; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+
+/* --- 历史页：文章样式 --- */
+.article-container { max-width: 800px; margin: 4rem auto; padding: 0 20px; }
+.subtitle { text-align: center; color: #666; font-style: italic; margin-bottom: 2rem; }
+.article-img { width: 100%; border-radius: 8px; margin-bottom: 2rem; }
+.article-content h3 { color: #72142f; margin-top: 2rem; margin-bottom: 1rem; border-left: 4px solid #b83b5e; padding-left: 10px; }
+.article-content p { margin-bottom: 1.5rem; text-align: justify; font-size: 1.1rem; }
+
+/* --- 图鉴页：网格 --- */
+.gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; }
+.photo-card img { width: 100%; height: 300px; object-fit: cover; border-radius: 8px; transition: 0.3s; }
+.photo-card:hover img { transform: scale(1.03); }
+.photo-card p { text-align: center; margin-top: 10px; color: #666; font-size: 0.9rem; }
+
+/* --- 底部 --- */
+footer { text-align: center; padding: 2rem; background: #333; color: #aaa; margin-top: 4rem; }
+
+/* --- 文献解析板块专属排版 --- */
+.pdf-content-wrapper {
+    background: #ffffff;
+    padding: 3rem;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.06); /* 淡淡的高级阴影 */
+    text-align: left; /* 覆盖外层容器的居中，让文字左对齐 */
+}
+
+.content-block {
+    margin-bottom: 3.5rem; /* 每个小节之间的间距 */
+}
+
+.content-block h3 {
+    color: #b83b5e;
+    font-size: 1.4rem;
+    margin-bottom: 1.5rem;
+    border-left: 5px solid #b83b5e; /* 左侧加一条红线装饰 */
+    padding-left: 15px;
+    background-color: #fdfbf7; /* 标题带点底色 */
+    display: inline-block;
+    padding-right: 20px;
+}
+
+.content-block p {
+    text-align: justify; /* 两端对齐，看起来更整齐 */
+    line-height: 1.8;    /* 行距拉开，阅读不累 */
+    color: #444;
+    margin-bottom: 1.2rem;
+    text-indent: 2em;    /* 中文标准的：首行空两格 */
+    font-size: 1.05rem;
+}
+
+.article-inline-img {
+    width: 100%;
+    max-width: 600px;    /* 图片不能无限大，最大 600px */
+    display: block;
+    margin: 2rem auto 0.5rem; /* 图片居中显示 */
+    border-radius: 8px;
+    border: 1px solid #eee; /* 给截图加个极细的边框，显得精细 */
+}
+
+.img-caption {
+    text-align: center !important; /* 图片说明居中 */
+    font-size: 0.9rem !important;
+    color: #888 !important;
+    text-indent: 0 !important;     /* 图片说明不需要首行缩进 */
+    margin-bottom: 2rem !important;
+}
+
+/* 手机端适配：屏幕变小时，内边距缩小 */
+@media (max-width: 768px) {
+    .pdf-content-wrapper {
+        padding: 1.5rem;
+    }
+}
